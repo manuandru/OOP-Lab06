@@ -1,7 +1,13 @@
 package it.unibo.oop.lab.collections2;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 
 /**
  * 
@@ -29,7 +35,7 @@ public class SocialNetworkUserImpl<U extends User> extends UserImpl implements S
      * 
      * think of what type of keys and values would best suit the requirements
      */
-
+	private final Map<U, String> followed = new HashMap<>();
     /*
      * [CONSTRUCTORS]
      * 
@@ -40,6 +46,9 @@ public class SocialNetworkUserImpl<U extends User> extends UserImpl implements S
      * 
      * 2) Define a further constructor where age is defaulted to -1
      */
+	public SocialNetworkUserImpl(String name, String surname, String user) {
+		super(name, surname, user);
+	}
 
     /**
      * Builds a new {@link SocialNetworkUserImpl}.
@@ -64,19 +73,32 @@ public class SocialNetworkUserImpl<U extends User> extends UserImpl implements S
      * Implements the methods below
      */
 
-    @Override
     public boolean addFollowedUser(final String circle, final U user) {
-        return false;
+    	
+    	if (this.followed.containsKey(user)) {
+    		return false;
+    	}
+    	
+    	this.followed.put(user, circle);
+    	return true;
     }
 
-    @Override
+
     public Collection<U> getFollowedUsersInGroup(final String groupName) {
-        return null;
+    	Collection<U> returnValue = new HashSet<>();
+    	
+    	for (Entry<U, String> user : this.followed.entrySet()) {
+    		if (user.getValue().equals(groupName)) {
+    			returnValue.add(user.getKey());
+    		}
+    	}
+    	
+        return returnValue;
     }
 
-    @Override
+
     public List<U> getFollowedUsers() {
-        return null;
+        return new ArrayList<>(this.followed.keySet());
     }
 
 }
