@@ -149,8 +149,8 @@ public final class UseCollection {
          * 8) Compute the population of the world
          */
     	long population = 0;
-    	for (var a : map.entrySet()) {
-    		population += a.getValue();
+    	for (var a : map.values()) {
+    		population += a;
     	}
     	
     	
