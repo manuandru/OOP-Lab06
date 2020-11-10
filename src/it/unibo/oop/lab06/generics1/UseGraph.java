@@ -36,6 +36,6 @@ public final class UseGraph {
         /*
          * Must print either the path b,c,a? or b,c,d,e,a
          */
-        System.out.println(g.getPath("b", "g"));
+        System.out.println(g.getPath("b", "a"));
     }
 }

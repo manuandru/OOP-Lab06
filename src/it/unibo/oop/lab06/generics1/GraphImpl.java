@@ -43,10 +43,10 @@ public class GraphImpl<N> implements Graph<N> {
 
 	
 	public List<N> getPath(N source, N target) {
-		return path(source, target, new HashSet<N>());
+		return visit(source, target, new HashSet<N>());
 	}
 	
-	private List<N> path(N source, N target, Set<N> visited) {
+	private List<N> visit(N source, N target, Set<N> visited) {
 		if (source == null || target == null ) {
 			return new LinkedList<>();
 		}
@@ -55,12 +55,12 @@ public class GraphImpl<N> implements Graph<N> {
 			return new LinkedList<>(List.of(source, target));
 		}
 		
-		Set<N> adj = map.get(source);
+		Set<N> adjacency = map.get(source);
 		List<N> returnValue = new LinkedList<>();
-		for (N node : adj) {
+		for (N node : adjacency) {
 			if (!visited.contains(node)) {
 				visited.add(node);
-				returnValue = this.path(node, target, visited);
+				returnValue = this.visit(node, target, visited);
 			}
 			if (!returnValue.isEmpty()) {
 				returnValue.add(0, source);
